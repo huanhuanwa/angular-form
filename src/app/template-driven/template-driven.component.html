@@ -1,0 +1,46 @@
+<h1>表单验证</h1>
+<form #f="ngForm">
+  <label for="name">Name: </label>
+  <input type="text" id="name" name="name" class="form-control" required minlength="4" appForbiddenName="bob" ngModel
+    #name="ngModel" appUniqueAlterEgo>
+  <br>
+</form>
+
+<hr>
+dirty: {{ name.dirty}}
+<br>
+touched: {{ name.touched}}
+
+<div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">
+  <div *ngIf="name.errors?.['required']">
+    Name is required.
+  </div>
+  <div *ngIf="name.errors?.['minlength']">
+    Name must be at least 4 characters long.
+  </div>
+  <div *ngIf="name.errors?.['forbiddenName']">
+    Name cannot be Bob.
+  </div>
+  <div *ngIf="name.errors?.['uniqueAlterEgo']">
+    Name is exit.
+  </div>
+</div>
+<br>
+<br>
+
+
+<hr>
+<br>
+<br>
+<form #fg="ngForm" (ngSubmit)="onSubmit(fg)">
+  <label for="name">Name: </label>
+  <input type="text" id="name" name="name" class="form-control" required minlength="4" appForbiddenName="bob" ngModel
+    #name="ngModel" appUniqueAlterEgo>
+  <label for="info">Info: </label>
+  <div ngModelGroup="info" #nameCtrl="ngModelGroup">
+    <input name="phone" [ngModel]="info.phone" minlength="2">
+    <input name="address" [ngModel]="info.address" maxlength="2">
+    <input name="age" [ngModel]="info.age" required>
+  </div>
+  <button>Submit</button>
+</form>

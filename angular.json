@@ -107,5 +107,8 @@
       }
     }
   },
-  "defaultProject": "angular-form"
+  "defaultProject": "angular-form",
+  "cli": {
+    "analytics": false
+  }
 }

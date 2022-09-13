@@ -1,0 +1,60 @@
+<input [(ngModel)]="name" #ctrl="ngModel" required>
+
+<p>Value: {{ name }}</p>
+<p>Valid: {{ ctrl.valid }}</p>
+
+<button (click)="setValue()">Set value</button>
+
+
+<br>
+<br>
+
+<hr>
+<br>
+<br>
+
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+    <input name="first" ngModel required #first="ngModel">
+    <input name="last" ngModel>
+    <button>Submit</button>
+</form>
+
+<p>First name value: {{ first.value }}</p>
+<p>First name valid: {{ first.valid }}</p>
+<p>Form value: {{ f.value | json }}</p>
+<p>Form valid: {{ f.valid }}</p>
+
+
+<br>
+<br>
+
+<hr>
+<br>
+<br>
+
+
+<p>响应式表单：</p>
+
+<form [formGroup]="concatForm" (submit)="concatFormSubmit()">
+    <app-counter formControlName="counter"></app-counter>
+</form>
+<br>
+
+<hr>
+<br>
+
+<p>模版驱动表单：</p>
+<form #custom="ngForm" (ngSubmit)="onSubmit(custom)">
+    <app-counter name="counter" ngModel required #counter="ngModel"></app-counter>
+</form>
+{{counter.value}}
+
+
+<br>
+
+<hr>
+<br>
+
+<p>单独使用：</p>
+<app-counter [(ngModel)]="count" #test="ngModel" (ngModelChange)="valueChange($event, test)"></app-counter>
+<p>Value: {{ count }}</p>

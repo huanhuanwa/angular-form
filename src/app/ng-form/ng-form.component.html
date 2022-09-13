@@ -1,0 +1,56 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    *用户名： <input name="username" #username="ngModel" ngModel required>
+    <div *ngIf="username.touched && !username.valid && username.errors">
+        <div *ngIf="username.errors['required']">请填写用户名</div>
+        <div *ngIf="username.errors['pattern']">不符合正则规则</div>
+    </div>
+    年龄：<input name="age" ngModel>
+
+    <button>提交</button>
+</form>
+
+
+<p>用户名: {{ username.value }}</p>
+<p>用户名验证: {{ username.valid }}</p>
+<p>表单数据: {{ f.value | json }}</p>
+<p>表单验证: {{ f.valid }}</p>
+
+<br>
+<hr>
+<br>
+
+<form ngNoForm>
+    姓名： <input name="name"  required >
+    年龄： <input name="age" >
+    <button>提交</button>
+</form>
+
+
+
+
+<br>
+<hr>
+<br>
+
+
+
+
+<h2> ngFormOptions </h2>
+<form  #f="ngForm" [ngFormOptions]="{updateOn: 'submit'}">
+    *用户名： <input name="option" #option="ngModel" ngModel>
+    <button>提交</button>
+</form>
+<p> {{ option.value }}</p>
+
+
+
+<br>
+<hr>
+<br>
+<h2> ngNativeValidate </h2>
+<form ngNativeValidate>
+    *用户名： <input name="username" #username="ngModel" ngModel required>
+    <button>提交</button>
+</form>
+
+

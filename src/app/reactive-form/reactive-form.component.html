@@ -1,0 +1,84 @@
+<h1>基础表单</h1>
+<label for="name">Name: </label>
+<input id="name" type="text" [formControl]="name">
+<label for="name">Age: </label>
+<input id="age" type="text" [formControl]="age">
+<p>Value: {{ name.value }}</p>
+<p>Value: {{ name.valueChanges | async}}</p>
+
+
+<button type="button" (click)="updateName()">Update Name</button>
+
+<h1>表单组</h1>
+<form [formGroup]="contactForm" (submit)="onSubmit()">
+  <label for="name">Name: </label><input type="text" formControlName="name" />
+  <div *ngIf="contactFormName.invalid && (contactFormName.dirty || contactFormName.touched)" class="alert alert-danger">
+    <div *ngIf="contactFormName.errors?.['required']">
+      Name is required.
+    </div>
+    <div *ngIf="contactFormName.errors?.['minlength']">
+      Name must be at least 4 characters long.
+    </div>
+    <div *ngIf="contactFormName.errors?.['forbiddenName']">
+      Name cannot be Bob.
+    </div>
+    <div *ngIf="contactFormName.errors?.['uniqueAlterEgo']">
+      Name is exit.
+    </div>
+  </div>
+
+  <p>
+    {{contactForm.value.name}}
+  </p>
+  <label for="phone">Phone: </label><input type="text" formControlName="phone" />
+  <div formGroupName="address">
+    <h4>Address</h4>
+    <label for="street">Street: </label>
+    <input id="street" type="text" formControlName="street">
+
+    <label for="city">City: </label>
+    <input id="city" type="text" formControlName="city">
+  </div>
+  <button [disabled]="!contactForm.valid">提交</button>
+</form>
+
+
+<button type="button" (click)="updateConcat()">Update concat</button>
+
+<button type="button" (click)="patchConcat()">Patch concat</button>
+
+
+
+<h1>FormBuilder</h1>
+<form [formGroup]="builderForm" (submit)="onSubmit()">
+  <label for="name">Name: </label><input type="text" formControlName="name" />
+  <label for="phone">Phone: </label><input type="text" formControlName="phone" />
+  <div formGroupName="address">
+    <h4>Address</h4>
+    <label for="street">Street: </label>
+    <input id="street" type="text" formControlName="street">
+
+    <label for="city">City: </label>
+    <input id="city" type="text" formControlName="city">
+  </div>
+  <button [disabled]="!builderForm.valid">提交</button>
+</form>
+
+
+<h1>动态表单</h1>
+<form [formGroup]="activeForm" (submit)="onSubmit()" class="active-form">
+  <div formArrayName="contacts">
+    <div *ngFor="let contact of actives.controls; let i = index" [formGroupName]="i">
+      <label for="phone">Name: </label>
+      <input type="text" formControlName="name" />
+      <label for="phone">Address: </label>
+      <input type="text" formControlName="address" />
+      <label for="phone">Pphone: </label>
+      <input type="text" formControlName="phone" />
+      <button (click)="removeContact(i)">删除联系方式</button>
+    </div>
+  </div>
+  <button (click)="addContact()">添加联系方式</button>
+  <br>
+  <button>提交</button>
+</form>

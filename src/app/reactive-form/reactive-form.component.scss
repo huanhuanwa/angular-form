@@ -1,0 +1,22 @@
+input {
+    display: block;
+    width: 500px;
+    height: 25px;
+}
+button {
+    height: 25px;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+input.ng-touched.ng-invalid {
+    border: 2px solid #ff7575;
+  }
+
+  .alert {
+    color: #ff7575;
+}
+
+.active-form {
+    padding-bottom: 100px;
+}
